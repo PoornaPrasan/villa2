@@ -98,34 +98,76 @@ const Gallery = () => {
         </div>
         
         <div
-          className={`columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 transition-all duration-1000 delay-500 ${
+          className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 transition-all duration-1000 delay-500 ${
             isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-10'
           }`}
         >
           {filteredImages.map((image, idx) => {
-            // Assign different heights for a dynamic look
-            let heightClass = 'h-64';
-            if (idx % 6 === 1 || idx % 6 === 4) heightClass = 'h-80';
-            if (idx % 6 === 2) heightClass = 'h-96';
+            // Create dynamic collage layout patterns
+            let gridClass = 'col-span-1 row-span-1';
+            let heightClass = 'h-48';
+            let zIndex = 'z-10';
+            let transform = '';
+            
+            // Create featured large images
+            if (idx === 0) {
+              gridClass = 'col-span-2 row-span-2 md:col-span-2 md:row-span-2';
+              heightClass = 'h-96 md:h-[400px]';
+              zIndex = 'z-20';
+            } else if (idx === 3) {
+              gridClass = 'col-span-2 row-span-1 md:col-span-2 md:row-span-1';
+              heightClass = 'h-56';
+              zIndex = 'z-15';
+            } else if (idx === 7) {
+              gridClass = 'col-span-1 row-span-2 md:col-span-1 md:row-span-2';
+              heightClass = 'h-80';
+              zIndex = 'z-15';
+            } else if (idx === 12) {
+              gridClass = 'col-span-2 row-span-1 md:col-span-3 md:row-span-1';
+              heightClass = 'h-48';
+              zIndex = 'z-15';
+            }
+            
+            // Add subtle rotation and positioning for collage effect
+            if (idx % 7 === 2) transform = 'rotate-1';
+            if (idx % 7 === 4) transform = '-rotate-1';
+            if (idx % 7 === 6) transform = 'rotate-2';
+            
             return (
               <div
                 key={image.id}
-                className={`mb-6 break-inside-avoid relative group cursor-pointer overflow-hidden rounded-3xl border border-gray-100 shadow-lg bg-white/70 transition-all duration-300 animate-fade-in-up ${heightClass}`}
+                className={`${gridClass} ${zIndex} relative group cursor-pointer overflow-hidden rounded-2xl md:rounded-3xl border-2 border-white shadow-lg bg-white transition-all duration-500 animate-fade-in-up hover:shadow-2xl hover:scale-[1.02] hover:-translate-y-2 ${heightClass} ${transform}`}
                 style={{ animationDelay: `${idx * 60}ms` }}
                 onClick={() => setSelectedImage(image.src)}
               >
+                {/* Decorative frame effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/10 rounded-2xl md:rounded-3xl pointer-events-none"></div>
+                
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-full object-cover rounded-3xl transition-transform duration-500 group-hover:scale-105 group-hover:shadow-2xl"
+                  className="w-full h-full object-cover rounded-xl md:rounded-2xl transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                   style={{ display: 'block' }}
                 />
-                {/* Overlay with title on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-start p-6">
-                  <span className="text-white text-xl font-semibold drop-shadow-lg animate-fade-in-up">{image.alt}</span>
+                
+                {/* Category badge */}
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  <span className="text-xs font-semibold text-gray-800">{image.category}</span>
                 </div>
-                {/* Shine effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none"></div>
+                
+                {/* Overlay with title and gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-4 md:p-6 rounded-xl md:rounded-2xl">
+                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <span className="text-white text-lg md:text-xl font-bold drop-shadow-lg block">{image.alt}</span>
+                    <span className="text-white/80 text-sm font-medium">{image.category}</span>
+                  </div>
+                </div>
+                
+                {/* Enhanced shine effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none rounded-xl md:rounded-2xl"></div>
+                
+                {/* Subtle border glow on hover */}
+                <div className="absolute inset-0 rounded-xl md:rounded-2xl border-2 border-transparent group-hover:border-blue-300/50 transition-all duration-500 pointer-events-none"></div>
               </div>
             );
           })}

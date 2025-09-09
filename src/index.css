@@ -73,6 +73,31 @@
   animation: gradient-shift 3s ease infinite;
 }
 
+/* Collage hover effects */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Staggered float animation */
+.animate-float-delayed {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-float-delayed-2 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
 /* Light reflection animation */
 @keyframes light-reflection {
   0% {
