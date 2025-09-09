@@ -4,6 +4,7 @@ import Gallery from './components/Gallery';
 import Attractions from './components/Attractions';
 import Contact from './components/Contact';
 import Reviews from './components/Reviews';
+import FloatingButton from './components/FloatingButton';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Attractions />
       <Reviews />
       <Contact />
-      
+      <FloatingButton />
     </div>
   );
 }
