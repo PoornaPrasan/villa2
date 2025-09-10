@@ -92,7 +92,7 @@ const FloatingButton = () => {
             : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200 min-w-[240px]">
+        <div className="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/30 min-w-[240px] backdrop-saturate-150">
           {bookingOptions.map((option, index) => (
             <button
               key={option.name}
@@ -100,14 +100,14 @@ const FloatingButton = () => {
                 option.action();
                 setIsExpanded(false);
               }}
-              className={`w-full flex items-center px-6 py-4 transition-all duration-200 ${option.bgColor} ${option.textColor} hover:brightness-110 ${
-                index < bookingOptions.length - 1 ? 'border-b border-white/20' : ''
+              className={`w-full flex items-center px-6 py-4 transition-all duration-200 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-gray-800 hover:text-gray-900 ${
+                index < bookingOptions.length - 1 ? 'border-b border-white/30' : ''
               }`}
             >
-              <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center mr-4">
+              <div className={`w-10 h-10 rounded-lg ${option.bgColor} flex items-center justify-center mr-4 shadow-lg`}>
                 {option.icon}
               </div>
-              <span className="font-semibold text-lg">{option.name}</span>
+              <span className="font-semibold text-lg text-gray-800">{option.name}</span>
             </button>
           ))}
         </div>
