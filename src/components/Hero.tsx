@@ -205,21 +205,18 @@ const Hero = () => {
             ? 'opacity-100 transform translate-y-0 pointer-events-auto' 
             : 'opacity-0 transform -translate-y-4 pointer-events-none'
         }`}>
-          <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl mx-1 overflow-hidden">
+          <div className="bg-white/20 backdrop-blur-xl backdrop-saturate-150 rounded-2xl border border-white/30 shadow-2xl mx-1 overflow-hidden">
             {bookingOptions.map((option, index) => (
               <button
                 key={option.name}
                 onClick={() => handleBookingClick(option.url)}
-                className={`w-full flex items-center px-4 py-4 relative backdrop-blur-sm hover:backdrop-blur-md transition-all duration-200 group ${
-                  index < bookingOptions.length - 1 ? 'border-b border-white/20' : ''
+                className={`w-full flex items-center px-4 py-4 relative backdrop-blur-sm hover:bg-white/20 transition-all duration-200 group ${
+                  index < bookingOptions.length - 1 ? 'border-b border-white/30' : ''
                 }`}
               >
-                {/* Glass background with color overlay */}
-                <div className={`absolute inset-0 bg-white/20 backdrop-blur-sm ${option.bgColor} opacity-80 group-hover:opacity-90 transition-opacity duration-200`}></div>
-                
                 {/* Content */}
                 <div className="relative z-10 flex items-center">
-                  <div className="w-8 h-8 rounded-lg bg-white/30 backdrop-blur-sm flex items-center justify-center mr-3 text-sm font-bold shadow-sm border border-white/20">
+                  <div className={`w-8 h-8 rounded-lg ${option.bgColor} flex items-center justify-center mr-3 text-sm font-bold shadow-lg`}>
                     {typeof option.icon === 'string' ? (
                       <span className={option.textColor}>{option.icon}</span>
                     ) : (
@@ -228,7 +225,7 @@ const Hero = () => {
                       </div>
                     )}
                   </div>
-                  <span className={`font-medium ${option.textColor}`}>{option.name}</span>
+                  <span className="font-semibold text-gray-800">{option.name}</span>
                 </div>
               </button>
             ))}
